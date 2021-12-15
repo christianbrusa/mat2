@@ -9,14 +9,19 @@
  * Entonces, queremos encontrar el nakama cuyo rol sea 'capitán'.
  * 
  */
+const _ = require("lodash");
+
   function posicionDelCapitan(nakamas) {
-	  for(i=0; i<nakamas.length; i++){
+	  
+	  let posicion = elemento => elemento.rol === "capitán";
+	  return _.findIndex(nakamas,posicion);
+
+	  /*for(i=0; i<nakamas.length; i++){
 	  		if(nakamas[i].rol === "capitán"){
 	  			return i;
 	  		}
-	  }
+	  }*/
 }
-
 
 module.exports = posicionDelCapitan;
 
