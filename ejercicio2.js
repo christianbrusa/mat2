@@ -32,17 +32,12 @@
  * 
  */
 
+const _ = require("lodash");
+
 //cambiar nombre a esta funcion y que devuelve boolean
-function primerTurno(unPokemon,otroPokemon)
+function QuienComienzaAtancando(unPokemon,otroPokemon)
 {
-	if(unPokemon.velocidad > otroPokemon.velocidad)
-	{
-		return 1;
-	}
-	else
-	{
-		return 2;
-	}
+	return unPokemon.velocidad > otroPokemon.velocidad;
 }
 
 /*funcion auxiliar que le pases 2 tipos / pokemons 
@@ -66,30 +61,31 @@ function atacar(unPokemon,otroPokemon)
 		}
 		
 	otroPokemon.vida = otroPokemon.vida - daño;
+
 }
 
 // Recibe dos pokemones y devuelve el ganador de la pelea :)
 function peleaPokemon(unPokemon,otroPokemon)
 {
-	//let daño;
-	let turnos = 5;
+	//let turnos = 5;
+	let turnosenArray = [1,2,3,4,5];
 	let pokemonRapido;
 	let pokemonLento;
 
-	if(primerTurno(unPokemon,otroPokemon) == 1)
+	if(QuienComienzaAtancando(unPokemon,otroPokemon))
 		{
 			pokemonRapido = unPokemon
 			pokemonLento = otroPokemon
 		}
-		else
+	else
 		{
 			pokemonRapido = otroPokemon
 			pokemonLento = unPokemon
 		}
 
-	while(turnos > 0)
+	//usar un FOR x este While
+	/*while(turnos > 0)
 	{
-
 		atacar(pokemonRapido,pokemonLento)
 
 		if(pokemonLento.vida <= 0)
@@ -103,7 +99,40 @@ function peleaPokemon(unPokemon,otroPokemon)
 		}
 
 		turnos = turnos - 1;
-	}
+	}*/
+
+	/*for (i=0; i<turnos; i++){
+		atacar(pokemonRapido,pokemonLento)
+
+		if(pokemonLento.vida <= 0)
+		{
+			return pokemonRapido;
+		}
+		atacar(pokemonLento,pokemonRapido)
+		if(pokemonRapido.vida <= 0)
+		{
+			return pokemonLento;
+		}
+	}*/
+
+	//pasar de FOR a orden superior
+	_.forEach(turnosenArray, function(e){
+		if(pokemonRapido.vida > 0){
+			atacar(pokemonRapido,pokemonLento);
+		}
+
+		if(pokemonLento.vida > 0){
+			atacar(pokemonLento,pokemonRapido);
+		}
+
+		if(pokemonRapido.vida <= 0){
+			pokemonRapido.vida = 0;
+		}
+			
+		if(pokemonLento.vida <= 0){
+			pokemonLento.vida = 0;
+		}
+	})
 
 		if(pokemonRapido.vida > pokemonLento.vida)
 		{
@@ -114,6 +143,5 @@ function peleaPokemon(unPokemon,otroPokemon)
 			return pokemonLento;
 		}
 }
-
 
 module.exports = peleaPokemon;
