@@ -35,7 +35,7 @@
 const _ = require("lodash");
 
 //cambiar nombre a esta funcion y que devuelve boolean
-function QuienComienzaAtancando(unPokemon,otroPokemon)
+function atacaPrimero(unPokemon,otroPokemon)
 {
 	return unPokemon.velocidad > otroPokemon.velocidad;
 }
@@ -72,7 +72,7 @@ function peleaPokemon(unPokemon,otroPokemon)
 	let pokemonRapido;
 	let pokemonLento;
 
-	if(QuienComienzaAtancando(unPokemon,otroPokemon))
+	if(atacaPrimero(unPokemon,otroPokemon))
 		{
 			pokemonRapido = unPokemon
 			pokemonLento = otroPokemon
